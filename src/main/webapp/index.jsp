@@ -19,8 +19,8 @@
     double pos1 = 37.578706;
     double pos2 = 126.976703;
     if (list != null && list.size()>0) {
-        pos1= list.get(0).getLat();
-        pos2= list.get(1).getLng();
+        pos1= (double) request.getAttribute("pos1");
+        pos2= (double) request.getAttribute("pos2");
     }
 %>
 <!DOCTYPE html>
@@ -65,10 +65,15 @@
                 var map = new kakao.maps.Map(container, options);
 
                 var positions = [
-                    <%if(list !=null){
+                    <%if(list !=null){%>
+                    {title: '내 위치',
+                        latlng: new kakao.maps.LatLng(<%=pos1%>,<%=pos2%>)
+                    },
+
+                    <%
                     for (WifiListDto wifi : list) { %>
                     {
-                        title: '<%=wifi.getRoadAddr()%>>',
+                        title: '<%=wifi.getRoadAddr()%>',
                         latlng: new kakao.maps.LatLng(<%=wifi.getLat()%>,<%=wifi.getLng()%>)
                     },
                     <%}}%>
@@ -76,7 +81,7 @@
 
                 ];
 
-                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+                var imageSrc = " http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png";
 
                 for (var i = 0; i < positions.length; i++) {
 
@@ -84,7 +89,11 @@
                     var imageSize = new kakao.maps.Size(24, 35);
 
                     // 마커 이미지를 생성합니다
+
                     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                    if (i == 0) {
+                        markerImage = new kakao.maps.MarkerImage('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',imageSize)
+                    }
 
                     // 마커를 생성합니다
                     var marker = new kakao.maps.Marker({

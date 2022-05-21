@@ -38,6 +38,8 @@ public class GetNearWifiServlet extends HttpServlet {
 
         ArrayList<WifiListDto> list = wifiRepo.findAll(Double.parseDouble(lat),Double.parseDouble(lng));
         request.setAttribute("list", list);
+        request.setAttribute("pos1",Double.parseDouble(lat));
+        request.setAttribute("pos2",Double.parseDouble(lng));
 
         hisRepo.save(Double.parseDouble(lat),Double.parseDouble(lng));
 
