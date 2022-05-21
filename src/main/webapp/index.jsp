@@ -1,6 +1,28 @@
 <%@ page import="com.dokuny.find_public_wifi.model.WifiListDto" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="com.dokuny.find_public_wifi.service.ApiService" %>
+<%@ page import="java.io.IOException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    Properties prop = new Properties();
+    String key = null;
+    try {
+        InputStream is = ApiService.class.getClassLoader().getResourceAsStream("config.properties");
+        prop.load(is);
+        key = prop.getProperty("map_key");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    ArrayList<WifiListDto> list = (ArrayList<WifiListDto>) request.getAttribute("list");
+    double pos1 = 37.578706;
+    double pos2 = 126.976703;
+    if (list != null && list.size()>0) {
+        pos1= list.get(0).getLat();
+        pos2= list.get(1).getLng();
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +53,49 @@
                 <input type="submit" value="근처 WIFI 찾기">
                 <button onclick="getLocation()" type="button">내 위치정보 가져오기</button>
             </form>
+            <div id="map" style="width:100%;height:400px;"></div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=key%>"></script>
+            <script>
+                var container = document.getElementById('map');
+                var options = {
+                    center: new kakao.maps.LatLng(<%=pos1%>, <%=pos2%>),
+                    level: 5
+                };
 
+                var map = new kakao.maps.Map(container, options);
+
+                var positions = [
+                    <%if(list !=null){
+                    for (WifiListDto wifi : list) { %>
+                    {
+                        title: '<%=wifi.getRoadAddr()%>>',
+                        latlng: new kakao.maps.LatLng(<%=wifi.getLat()%>,<%=wifi.getLng()%>)
+                    },
+                    <%}}%>
+
+
+                ];
+
+                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+                for (var i = 0; i < positions.length; i++) {
+
+                    // 마커 이미지의 이미지 크기 입니다
+                    var imageSize = new kakao.maps.Size(24, 35);
+
+                    // 마커 이미지를 생성합니다
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                    // 마커를 생성합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map, // 마커를 표시할 지도
+                        position: positions[i].latlng, // 마커를 표시할 위치
+                        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                        image: markerImage // 마커 이미지
+                    });
+                }
+
+            </script>
             <table id="mainTable">
                 <tr>
                     <th>거리(km)</th>
@@ -58,33 +122,48 @@
                     <td colspan="17">위치 정보를 입력한 후에 조회해 주세요.</td>
                 </tr>
                 <%
-                } else{
-                    ArrayList<WifiListDto> list = (ArrayList<WifiListDto>)request.getAttribute("list");
-
+                } else {
                     for (WifiListDto wifiListDto : list) {%>
                 <tr>
-                    <td><%=wifiListDto.getDistance()%></td>
-                    <td><%=wifiListDto.getManagementNum()%></td>
-                    <td><%=wifiListDto.getGu()%></td>
-                    <td><%=wifiListDto.getName()%></td>
-                    <td><%=wifiListDto.getRoadAddr()%></td>
-                    <td><%=wifiListDto.getDetailAddr()%></td>
-                    <td><%=wifiListDto.getInstallFloor()%></td>
-                    <td><%=wifiListDto.getInstallType()%></td>
-                    <td><%=wifiListDto.getInstallAgency()%></td>
-                    <td><%=wifiListDto.getServiceType()%></td>
-                    <td><%=wifiListDto.getNetworkType()%></td>
-                    <td><%=wifiListDto.getInstallYear()%></td>
-                    <td><%=wifiListDto.getInOut()%></td>
-                    <td><%=wifiListDto.getEnv()%></td>
-                    <td><%=wifiListDto.getLat()%></td>
-                    <td><%=wifiListDto.getLng()%></td>
-                    <td><%=wifiListDto.getWorkedTime()%></td>
+                    <td><%=wifiListDto.getDistance()%>
+                    </td>
+                    <td><%=wifiListDto.getManagementNum()%>
+                    </td>
+                    <td><%=wifiListDto.getGu()%>
+                    </td>
+                    <td><%=wifiListDto.getName()%>
+                    </td>
+                    <td><%=wifiListDto.getRoadAddr()%>
+                    </td>
+                    <td><%=wifiListDto.getDetailAddr()%>
+                    </td>
+                    <td><%=wifiListDto.getInstallFloor()%>
+                    </td>
+                    <td><%=wifiListDto.getInstallType()%>
+                    </td>
+                    <td><%=wifiListDto.getInstallAgency()%>
+                    </td>
+                    <td><%=wifiListDto.getServiceType()%>
+                    </td>
+                    <td><%=wifiListDto.getNetworkType()%>
+                    </td>
+                    <td><%=wifiListDto.getInstallYear()%>
+                    </td>
+                    <td><%=wifiListDto.getInOut()%>
+                    </td>
+                    <td><%=wifiListDto.getEnv()%>
+                    </td>
+                    <td><%=wifiListDto.getLat()%>
+                    </td>
+                    <td><%=wifiListDto.getLng()%>
+                    </td>
+                    <td><%=wifiListDto.getWorkedTime()%>
+                    </td>
                 </tr>
-                    <%
+                <%
+                        }
                     }
-                }
-                    request.setAttribute("list",null);%>
+                    %>
             </table>
         </section>
     </body>
