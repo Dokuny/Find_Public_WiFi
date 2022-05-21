@@ -1,6 +1,6 @@
 package com.dokuny.find_public_wifi.service;
 
-import com.dokuny.find_public_wifi.model.Wifi;
+import com.dokuny.find_public_wifi.model.WifiApiDto;
 import com.google.gson.*;
 import okhttp3.*;
 
@@ -57,13 +57,13 @@ public class ApiService {
         return wifiData.get("list_total_count").getAsInt();
     }
 
-    public static ArrayList<Wifi> getWifiDataAll() {
+    public static ArrayList<WifiApiDto> getWifiDataAll() {
         int totalNum = getTotalNum();
         int carryMaxNum = 1000;
         int first = 1;
         int second = 1000;
 
-        ArrayList<Wifi> list = new ArrayList<>();
+        ArrayList<WifiApiDto> list = new ArrayList<>();
         Gson gson = new Gson();
 
         while (first < totalNum) {
@@ -74,8 +74,8 @@ public class ApiService {
 
             JsonArray row = wifiInfo.get("row").getAsJsonArray();
             for (JsonElement jsonElement : row) {
-                Wifi wifi = gson.fromJson(jsonElement, Wifi.class);
-                list.add(wifi);
+                WifiApiDto wifiApiDto = gson.fromJson(jsonElement, WifiApiDto.class);
+                list.add(wifiApiDto);
             }
             first = second + 1;
             second = first + carryMaxNum - 1;

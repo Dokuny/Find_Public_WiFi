@@ -1,11 +1,11 @@
 function getLocation() {
     if (navigator.geolocation) { // GPS를 지원하면
         let lat = document.getElementById('lat');
-        let lnt = document.getElementById('lnt');
+        let lng = document.getElementById('lng');
 
         navigator.geolocation.getCurrentPosition(function(position) {
             lat.value=position.coords.latitude;
-            lnt.value =position.coords.longitude;
+            lng.value =position.coords.longitude;
         }, function(error) {
             console.error(error);
         }, {
