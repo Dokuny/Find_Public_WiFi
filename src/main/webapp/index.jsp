@@ -1,37 +1,11 @@
 <%@ page import="com.dokuny.find_public_wifi.model.WifiListDto" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Properties" %>
-<%@ page import="java.io.InputStream" %>
-<%@ page import="com.dokuny.find_public_wifi.service.ApiService" %>
-<%@ page import="java.io.IOException" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    Properties prop = new Properties();
-    String key = null;
-    try {
-        InputStream is = ApiService.class.getClassLoader().getResourceAsStream("config.properties");
-        prop.load(is);
-        key = prop.getProperty("map_key");
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    ArrayList<WifiListDto> list = (ArrayList<WifiListDto>) request.getAttribute("list");
-    double pos1 = 37.578706;
-    double pos2 = 126.976703;
-    if (list != null && list.size()>0) {
-        pos1= (double) request.getAttribute("pos1");
-        pos2= (double) request.getAttribute("pos2");
-    }
-%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>공공 와이파이 찾기</title>
-        <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="static/css/index.css" rel="stylesheet" type="text/css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+        <jsp:include page="static/component/head.jsp"/>
         <script type="text/javascript" src="static/js/geolocation.js"></script>
 
     </head>
@@ -47,64 +21,13 @@
         <section id="main">
             <form action="/getNearWifi" id="mainForm" method="post">
                 <label for="lat">위도</label>
-                <input type="text" id="lat" name="lat" placeholder="위도를 입력해주세요.">
+                <input type="number" id="lat" name="lat" placeholder="위도를 입력해주세요." step="0.0000000000000001">
                 <label for="lng"> , 경도</label>
-                <input type="text" id="lng" name="lng" placeholder="경도를 입력해주세요.">
+                <input type="number" id="lng" name="lng" placeholder="경도를 입력해주세요." step="0.0000000000000001">
                 <input type="submit" value="근처 WIFI 찾기">
                 <button onclick="getLocation()" type="button">내 위치정보 가져오기</button>
             </form>
-            <div id="map" style="width:100%;height:400px;"></div>
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=key%>"></script>
-            <script>
-                var container = document.getElementById('map');
-                var options = {
-                    center: new kakao.maps.LatLng(<%=pos1%>, <%=pos2%>),
-                    level: 5
-                };
-
-                var map = new kakao.maps.Map(container, options);
-
-                var positions = [
-                    <%if(list !=null){%>
-                    {title: '내 위치',
-                        latlng: new kakao.maps.LatLng(<%=pos1%>,<%=pos2%>)
-                    },
-
-                    <%
-                    for (WifiListDto wifi : list) { %>
-                    {
-                        title: '<%=wifi.getRoadAddr()%>',
-                        latlng: new kakao.maps.LatLng(<%=wifi.getLat()%>,<%=wifi.getLng()%>)
-                    },
-                    <%}}%>
-
-
-                ];
-
-                var imageSrc = " http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png";
-
-                for (var i = 0; i < positions.length; i++) {
-
-                    // 마커 이미지의 이미지 크기 입니다
-                    var imageSize = new kakao.maps.Size(24, 35);
-
-                    // 마커 이미지를 생성합니다
-
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-                    if (i == 0) {
-                        markerImage = new kakao.maps.MarkerImage('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png',imageSize)
-                    }
-
-                    // 마커를 생성합니다
-                    var marker = new kakao.maps.Marker({
-                        map: map, // 마커를 표시할 지도
-                        position: positions[i].latlng, // 마커를 표시할 위치
-                        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                        image: markerImage // 마커 이미지
-                    });
-                }
-
-            </script>
+            <jsp:include page="static/component/map.jsp" flush="false"/>
             <table id="mainTable">
                 <tr>
                     <th>거리(km)</th>
@@ -132,7 +55,7 @@
                 </tr>
                 <%
                 } else {
-                    for (WifiListDto wifiListDto : list) {%>
+                    for (WifiListDto wifiListDto : (ArrayList<WifiListDto>)request.getAttribute("list")) {%>
                 <tr>
                     <td><%=wifiListDto.getDistance()%>
                     </td>
