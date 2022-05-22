@@ -1,25 +1,21 @@
-<%@ page import="com.dokuny.find_public_wifi.model.WifiListDto" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dokuny.find_public_wifi.model.History" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
     <head>
         <title>공공 와이파이 찾기</title>
-        <link href="static/css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="static/css/index.css" rel="stylesheet" type="text/css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+        <jsp:include page="static/component/head.jsp"/>
     </head>
     <body>
         <jsp:include page="static/component/header.jsp" flush="false"/>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/index.jsp">Home</a></li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item active">History</li>
-                <li class="breadcrumb-item"><a href="/updateWifi.jsp">Update Wifi Info</a></li>
+                <li class="breadcrumb-item"><a href="/updateWifi">Update Wifi Info</a></li>
             </ol>
         </nav>
+
         <section id="main">
             <table id="mainTable">
                 <tr>
