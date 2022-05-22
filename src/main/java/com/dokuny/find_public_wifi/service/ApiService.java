@@ -1,6 +1,6 @@
 package com.dokuny.find_public_wifi.service;
 
-import com.dokuny.find_public_wifi.model.WifiApiDto;
+import com.dokuny.find_public_wifi.model.dto.WifiApiDto;
 import com.dokuny.find_public_wifi.util.PropertyManager;
 import com.google.gson.*;
 import okhttp3.*;

@@ -1,6 +1,6 @@
 package com.dokuny.find_public_wifi.repository;
 
-import com.dokuny.find_public_wifi.model.WifiListDto;
+import com.dokuny.find_public_wifi.model.dto.WifiListDto;
 
 import java.util.ArrayList;
 

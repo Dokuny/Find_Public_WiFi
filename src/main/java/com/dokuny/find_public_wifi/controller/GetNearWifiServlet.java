@@ -1,6 +1,6 @@
 package com.dokuny.find_public_wifi.controller;
 
-import com.dokuny.find_public_wifi.model.WifiListDto;
+import com.dokuny.find_public_wifi.model.dto.WifiListDto;
 import com.dokuny.find_public_wifi.repository.HistoryRepository;
 import com.dokuny.find_public_wifi.repository.HistoryRepositoryImpl;
 import com.dokuny.find_public_wifi.repository.WifiRepository;

@@ -1,4 +1,4 @@
-package com.dokuny.find_public_wifi.model;
+package com.dokuny.find_public_wifi.model.entity;
 
 import lombok.Builder;
 import lombok.Getter;

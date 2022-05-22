@@ -1,5 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dokuny.find_public_wifi.model.History" %>
+<%@ page import="com.dokuny.find_public_wifi.model.entity.History" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
     <head>

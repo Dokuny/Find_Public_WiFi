@@ -1,4 +1,4 @@
-<%@ page import="com.dokuny.find_public_wifi.model.WifiListDto" %>
+<%@ page import="com.dokuny.find_public_wifi.model.dto.WifiListDto" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dokuny.find_public_wifi.util.PropertyManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>

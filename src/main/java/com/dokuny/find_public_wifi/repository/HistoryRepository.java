@@ -1,6 +1,6 @@
 package com.dokuny.find_public_wifi.repository;
 
-import com.dokuny.find_public_wifi.model.History;
+import com.dokuny.find_public_wifi.model.entity.History;
 
 import java.util.ArrayList;
 

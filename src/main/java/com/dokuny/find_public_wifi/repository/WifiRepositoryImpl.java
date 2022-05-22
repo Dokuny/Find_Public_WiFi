@@ -1,7 +1,7 @@
 package com.dokuny.find_public_wifi.repository;
 
-import com.dokuny.find_public_wifi.model.WifiApiDto;
-import com.dokuny.find_public_wifi.model.WifiListDto;
+import com.dokuny.find_public_wifi.model.dto.WifiApiDto;
+import com.dokuny.find_public_wifi.model.dto.WifiListDto;
 import com.dokuny.find_public_wifi.service.ApiService;
 import com.dokuny.find_public_wifi.util.ConnectionManager;
 import com.dokuny.find_public_wifi.util.ConnectionManagerForSQLite;
