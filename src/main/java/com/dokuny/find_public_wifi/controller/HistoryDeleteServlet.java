@@ -13,7 +13,6 @@ public class HistoryDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HistoryRepository hisRepo = new HistoryRepositoryImpl();
 
         String id = request.getParameter("id");

@@ -19,7 +19,7 @@ public class UpdateWifiServlet extends HttpServlet {
         int num = repo.updateAll();
         request.setAttribute("num", num);
 
-        request.getRequestDispatcher("updateAlert.jsp").forward(request,response);
+        request.getRequestDispatcher("/updateAlert.jsp").forward(request,response);
     }
 
 

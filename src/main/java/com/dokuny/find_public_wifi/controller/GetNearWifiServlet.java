@@ -19,13 +19,14 @@ public class GetNearWifiServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
 
         WifiRepository wifiRepo = new WifiRepositoryImpl();
         HistoryRepository hisRepo = new HistoryRepositoryImpl();
 
         String lng = request.getParameter("lng");
         String lat = request.getParameter("lat");
+
+        PrintWriter out = response.getWriter();
 
         if (lng == null || lat == null || lng == "" || lat == "") {
             out.println("<script>" +
@@ -35,13 +36,14 @@ public class GetNearWifiServlet extends HttpServlet {
             return;
         }
 
+        hisRepo.save(Double.parseDouble(lat),Double.parseDouble(lng));
+
 
         ArrayList<WifiListDto> list = wifiRepo.findAll(Double.parseDouble(lat),Double.parseDouble(lng));
+
         request.setAttribute("list", list);
         request.setAttribute("pos1",Double.parseDouble(lat));
         request.setAttribute("pos2",Double.parseDouble(lng));
-
-        hisRepo.save(Double.parseDouble(lat),Double.parseDouble(lng));
 
         request.getRequestDispatcher("/").forward(request,response);
     }
