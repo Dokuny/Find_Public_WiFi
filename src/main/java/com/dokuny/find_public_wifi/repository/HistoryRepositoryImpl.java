@@ -1,6 +1,8 @@
 package com.dokuny.find_public_wifi.repository;
 
 import com.dokuny.find_public_wifi.model.History;
+import com.dokuny.find_public_wifi.util.ConnectionManager;
+import com.dokuny.find_public_wifi.util.ConnectionManagerForSQLite;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -8,84 +10,56 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class HistoryRepositoryImpl implements HistoryRepository {
+
+    private final ConnectionManager cm;
+
+    public HistoryRepositoryImpl() {
+        cm = new ConnectionManagerForSQLite();
+    }
+
     @Override
     public void save(double lat,double lng) {
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+        Connection conn = cm.getConnection();
+        PreparedStatement stmt = null;
+
+        String sql = "INSERT INTO history(lat,lng,check_date) VALUES(?,?,?);";
 
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:D:\\study\\Project\\Find_Public_Wifi\\find_public_wifi");
-
-            String sql = "INSERT INTO history(lat,lng,check_date) VALUES(?,?,?);";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setDouble(1,lat);
-            pstmt.setDouble(2,lng);
-            pstmt.setString(3, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S").format(LocalDateTime.now()));
-            pstmt.execute();
+            stmt = conn.prepareStatement(sql);
+            stmt.setDouble(1,lat);
+            stmt.setDouble(2,lng);
+            stmt.setString(3, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S").format(LocalDateTime.now()));
+            stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
 
         } finally {
-            try {
-                if (pstmt != null && !pstmt.isClosed()) {
-                    pstmt.close();
-                }
-
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            cm.closeConnection(conn,stmt);
         }
     }
 
     @Override
     public ArrayList<History> findAll() {
         ArrayList<History> list = new ArrayList<>();
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+        Connection conn = cm.getConnection();
+        PreparedStatement stmt = null;
         ResultSet rs = null;
 
+        String sql = "SELECT * FROM history;";
+
+
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:D:\\study\\Project\\Find_Public_Wifi\\find_public_wifi");
-
-            String sql = "SELECT * FROM history;";
-            pstmt = conn.prepareStatement(sql);
-
-            rs = pstmt.executeQuery();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
 
             list = History.ofAll(rs);
         } catch (SQLException e) {
             e.printStackTrace();
 
         } finally {
-            try {
-                if (rs != null && !rs.isClosed()) {
-                    rs.close();
-                }
-                if (pstmt != null && !pstmt.isClosed()) {
-                    pstmt.close();
-                }
-
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            cm.closeConnection(conn,stmt,rs);
         }
 
         return list;
@@ -93,37 +67,20 @@ public class HistoryRepositoryImpl implements HistoryRepository {
 
     @Override
     public void delete(int id) {
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        Connection conn = cm.getConnection();
+        PreparedStatement stmt = null;
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+        String sql = "DELETE FROM history WHERE id = ?;";
 
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:D:\\study\\Project\\Find_Public_Wifi\\find_public_wifi");
-
-            String sql = "DELETE FROM history WHERE id = ?;";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, id);
-            pstmt.execute();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
 
         } finally {
-            try {
-                if (pstmt != null && !pstmt.isClosed()) {
-                    pstmt.close();
-                }
-
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+           cm.closeConnection(conn,stmt);
         }
     }
 }

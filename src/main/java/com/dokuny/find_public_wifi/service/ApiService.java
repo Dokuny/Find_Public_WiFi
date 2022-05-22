@@ -1,39 +1,31 @@
 package com.dokuny.find_public_wifi.service;
 
 import com.dokuny.find_public_wifi.model.WifiApiDto;
+import com.dokuny.find_public_wifi.util.PropertyManager;
 import com.google.gson.*;
 import okhttp3.*;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Properties;
 
 public class ApiService {
-    private static String key = null;
 
-    static {
-        Properties prop = new Properties();
-        try {
-            InputStream is = ApiService.class.getClassLoader().getResourceAsStream("config.properties");
-            prop.load(is);
-            key = prop.getProperty("public_wifi_key");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private final String KEY;
+    private final String BASE_URL;
+
+    public ApiService() {
+        KEY = PropertyManager.getProp("config.properties").getProperty("public_wifi_key");
+        BASE_URL = "http://openapi.seoul.go.kr:8088/"+ KEY +"/json/TbPublicWifiInfo/";
     }
 
-    private static final String BASE_URL = "http://openapi.seoul.go.kr:8088/"+key+"/json/TbPublicWifiInfo/";
 
-    private static JsonObject getWifiInfo(int first, int second) {
+    private JsonObject getWifiInfo(int first, int second) {
         String url = BASE_URL + first + "/" + second + "/";
 
         try {
             OkHttpClient client = new OkHttpClient();
-            Request.Builder builder = new Request.Builder().url(url).get();
-            Request request = builder.build();
-
+            Request request = new Request.Builder().url(url).get().build();
             Response response = client.newCall(request).execute();
+
             if (response.isSuccessful()) {
                 ResponseBody body = response.body();
                 if (body != null) {
@@ -48,16 +40,15 @@ public class ApiService {
                 Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
-    private static int getTotalNum() {
+    private int getTotalNum() {
         JsonObject wifiData = getWifiInfo(1, 1);
         return wifiData.get("list_total_count").getAsInt();
     }
 
-    public static ArrayList<WifiApiDto> getWifiDataAll() {
+    public ArrayList<WifiApiDto> getWifiDataAll() {
         int totalNum = getTotalNum();
         int carryMaxNum = 1000;
         int first = 1;
