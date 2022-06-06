@@ -25,3 +25,6 @@
 
 ### 시연영상
 https://fringe-slug-b73.notion.site/b41c1d8b57184daa8bcce6ec99277b63
+
+### 프로젝트 정리
+https://fringe-slug-b73.notion.site/Find-Public-Wifi-a7e28573a69c45bfac39ba39f9e10be4
