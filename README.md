@@ -24,7 +24,7 @@
 * 와이파이 조회 이력 저장 및 관리
 
 ### 시연영상
-https://fringe-slug-b73.notion.site/b41c1d8b57184daa8bcce6ec99277b63
+https://dokuny.notion.site/b41c1d8b57184daa8bcce6ec99277b63
 
 ### 프로젝트 정리
-https://fringe-slug-b73.notion.site/Find-Public-Wifi-a7e28573a69c45bfac39ba39f9e10be4
+https://dokuny.notion.site/Find-Public-Wifi-a7e28573a69c45bfac39ba39f9e10be4
