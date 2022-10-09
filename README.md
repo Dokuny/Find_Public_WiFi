@@ -1,30 +1,25 @@
-# Find_Public_Wifi
-## 개발목표
-* 현재 내 위치 기준으로 서울시 공공 와이파이 찾기
+# [Find_Public_Wifi](https://www.notion.so/dokuny/Find-Public-Wifi-a7e28573a69c45bfac39ba39f9e10be4)
 
-### 개발 목적
-* 급하게 Wifi를 써야하는 경우, 보통 카페에 가는 경우가 많다. 그러나 카페에 가기 애매한 경우가 생길 때 가장 최고의 선택은 공공와이파이를 이용하는 것이다.
-* 서울시에서는 공공와이파이를 생각보다 많이 제공해주고 있다. 공공기관,버스 정류장 등에서도 와이파이를 제공해주는데 이를 잘 모르는 사람들이 많은 것 같다. 그래서 공공 와이파이를 어디서 사용할 수 있는지 쉽게 알려주기 위한 목적으로 개발하게 되었다.
+> 서울시 기준, 내 주변 공공 와이파이 조회 서비스입니다.
 
-### 개발인원
-* 이도훈 (Dokuny)
-  * https://github.com/Dokuny
-  * https://dokuny.tistory.com/
+## 📜주요 기능 소개
 
-### 개발 도구
-* IntelliJ IDEA Ultimate
-* SQLite
-* Erwin Data Modeler
-* Git / Sourcetree
+- 현재 위치를 기반으로 주변 20개의 공공 와이파이 정보를 조회합니다.
 
+- 조회 이력을 확인할 수 있습니다.
 
-***
-### 기능
-* 내 근처 공공 와이파이 최대 20개 조회
-* 와이파이 조회 이력 저장 및 관리
+## 🧑‍🤝‍🧑 개발 인원
 
-### 시연영상
-https://dokuny.notion.site/b41c1d8b57184daa8bcce6ec99277b63
+![194528630-1c4c1697-b463-4e30-b372-db609655d716](https://user-images.githubusercontent.com/49369306/194532101-beb7a539-2dc5-41a9-beb5-2cae516fe0ae.jpg)  
+[이도훈](https://github.com/Dokuny)
 
-### 프로젝트 정리
-https://dokuny.notion.site/Find-Public-Wifi-a7e28573a69c45bfac39ba39f9e10be4
+## 🔧Skills
+### Front-End
+<img src="https://img.shields.io/badge/JSP-E34F26?style=for-the-badge&logo=JSP&logoColor=white"> 
+
+### Back-End
+<img src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=White"/> <img src ="https://img.shields.io/badge/SQLite-003B57.svg?&style=for-the-badge&logo=SQLite&logoColor=White"/> 
+
+## 🏢시연 영상
+[bandicam 2022-05-22 16-27-17-460.mp4](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e72828e-9657-4edd-8c84-71c28e61d13a/bandicam_2022-05-22_16-27-17-460.mp4)
+
