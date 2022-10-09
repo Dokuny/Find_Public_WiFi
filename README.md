@@ -6,7 +6,7 @@
 
 - 현재 위치를 기반으로 주변 20개의 공공 와이파이 정보를 조회합니다.
 
-- 조회 이력을 확인할 수 있습니다.
+- 조회 이력을 관리할 수 있습니다.
 
 ## 🧑‍🤝‍🧑 개발 인원
 
@@ -21,5 +21,9 @@
 <img src ="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=Java&logoColor=White"/> <img src ="https://img.shields.io/badge/SQLite-003B57.svg?&style=for-the-badge&logo=SQLite&logoColor=White"/> 
 
 ## 🏢시연 영상
-[bandicam 2022-05-22 16-27-17-460.mp4](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e72828e-9657-4edd-8c84-71c28e61d13a/bandicam_2022-05-22_16-27-17-460.mp4)
-
+### 서울시 공공 와이파이 API 호출
+![bandicam 2022-05-22 16-27-17-460](https://user-images.githubusercontent.com/87813831/194745260-6f1dc0b5-14db-45df-9cdc-dbb779c1cff6.gif)
+### 내 위치 기반 와이파이 조회
+![bandicam 2022-05-22 16-33-08-505](https://user-images.githubusercontent.com/87813831/194745859-2e1a508e-7c7c-4dde-b285-ba0b68b319ea.gif)
+### 조회 이력 관리
+![bandicam 2022-05-22 16-34-53-607](https://user-images.githubusercontent.com/87813831/194745869-d3b2b1d6-f311-4689-8085-389f8725580b.gif)
